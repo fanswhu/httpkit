@@ -2,6 +2,8 @@ package com.fanswhu.httpkit.core;
 
 import android.util.Log;
 
+import com.google.gson.Gson;
+
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 
@@ -9,7 +11,7 @@ import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
-public class BaseObserver<T> implements Observer<Object> {
+public class BaseObserver<T> implements Observer<String> {
     private static final String TAG = "BaseObserver";
     private final HttpCallBack<T> mHttpCallBack;
     private Disposable mDisposable;
@@ -24,11 +26,11 @@ public class BaseObserver<T> implements Observer<Object> {
     }
 
     @Override
-    public void onNext(@NonNull Object o) {
+    public void onNext(@NonNull String o) {
 
         if (mHttpCallBack != null) {
             try {
-                T response = (T) o;
+                T response = new Gson().fromJson(o,getClazz());
                 mHttpCallBack.onSuccess(response);
             } catch (ClassCastException e) {
                 Log.e(TAG, "ClassCastException");
@@ -62,4 +64,20 @@ public class BaseObserver<T> implements Observer<Object> {
         void onError(Throwable e);
     }
 
+
+    private Class<T> getClazz() {
+        Class<T> clazz;
+        Type superclass = getClass().getGenericSuperclass();
+        ParameterizedType parameterizedType = null;
+        if (superclass instanceof ParameterizedType) {
+            parameterizedType = (ParameterizedType) superclass;
+            Type[] typeArray = parameterizedType.getActualTypeArguments();
+            if (typeArray != null && typeArray.length > 0) {
+                clazz = (Class<T>) typeArray[0];
+                return clazz;
+
+            }
+        }
+        return null;
+    }
 }

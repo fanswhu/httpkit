@@ -31,7 +31,7 @@ public interface RetrofitService {
 
     @FormUrlEncoded
     @POST("{url}")
-    Observable<Object> executePost(
+    Observable<String> executePost(
             @Path("url") String url,
             @FieldMap Map<String, Object> maps);
 
