@@ -3,7 +3,9 @@ package com.fanswhu.httpkit.core;
 import android.util.Log;
 
 import com.fanswhu.httpkit.constant.Constants;
+import com.fanswhu.httpkit.manager.CustomInterceptorManager;
 
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -48,6 +50,10 @@ public class RetrofitManager {
         // OkHttp进行添加拦截器loggingInterceptor
         httpClientBuilder.addInterceptor(loggingInterceptor);
         httpClientBuilder.addInterceptor(new CommonInterceptor());
+        // 添加自定义拦截器
+        for (Interceptor value : CustomInterceptorManager.getInstance().getInterceptors()) {
+            httpClientBuilder.addInterceptor(value);
+        }
         return httpClientBuilder.build();
     }
 }

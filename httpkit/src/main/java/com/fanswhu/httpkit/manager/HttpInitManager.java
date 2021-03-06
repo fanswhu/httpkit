@@ -2,6 +2,8 @@ package com.fanswhu.httpkit.manager;
 
 import com.fanswhu.httpkit.constant.Constants;
 
+import okhttp3.Interceptor;
+
 /**
  * Copyright (C), 2017-2021, 宝能有限公司
  * Author: jayce.feng
@@ -13,7 +15,6 @@ public class HttpInitManager {
 
     private static HttpInitManager instance;
     private HttpInitManager(){
-
     }
 
     public static HttpInitManager getInstance(){
@@ -29,5 +30,10 @@ public class HttpInitManager {
 
     public void initBaseUrl(String url){
         Constants.BASE_URL = url;
+    }
+
+    public HttpInitManager addInterceptor(Interceptor interceptor){
+        CustomInterceptorManager.getInstance().addInterceptor(interceptor);
+        return instance;
     }
 }

@@ -2,11 +2,11 @@ package com.fanswhu.httpkit.demo;
 
 import com.fanswhu.httpkit.core.BaseDataManager;
 import com.fanswhu.httpkit.core.BaseObserver;
-
+import com.fanswhu.httpkit.core.HttpCallBack;
 
 
 public class FunDataBaseManager extends BaseDataManager<PostRequest, PostInfo> {
-    public FunDataBaseManager(BaseObserver.HttpCallBack<PostInfo> callBack) {
+    public FunDataBaseManager(HttpCallBack<PostInfo> callBack) {
         super("getJoke", callBack);
     }
 

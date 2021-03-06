@@ -1,22 +1,20 @@
 package com.fanswhu.httpkit.core;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
-
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
-public class BaseObserver<T> implements Observer<Object> {
+/**
+ * 网络请求回调包装类
+ * @param <V> 返回泛型
+ */
+public class BaseObserver<V> implements Observer<Object> {
     private static final String TAG = "BaseObserver";
-    private final HttpCallBack<T> mHttpCallBack;
+    private final HttpCallBack<V> mHttpCallBack;
     private Disposable mDisposable;
 
-    public BaseObserver(HttpCallBack<T> mHttpCallBack) {
+    public BaseObserver(HttpCallBack<V> mHttpCallBack) {
         this.mHttpCallBack = mHttpCallBack;
     }
 
@@ -27,15 +25,11 @@ public class BaseObserver<T> implements Observer<Object> {
 
     @Override
     public void onNext(@NonNull Object o) {
-
         if (mHttpCallBack != null) {
-            try {
-                Gson gson = new Gson();
-                T response = gson.fromJson(gson.toJson(o),getClazz());
-                mHttpCallBack.onSuccess(response);
-            } catch (ClassCastException e) {
-                Log.e(TAG, "ClassCastException");
-            }
+            Gson gson = new Gson();
+            String str = gson.toJson(o);
+            V response = gson.fromJson(str, mHttpCallBack.cls);
+            mHttpCallBack.onSuccess(response);
         }
     }
 
@@ -59,26 +53,5 @@ public class BaseObserver<T> implements Observer<Object> {
         }
     }
 
-    public interface HttpCallBack<V> {
-        void onSuccess(V t);
 
-        void onError(Throwable e);
-    }
-
-
-    private Class<T> getClazz() {
-        Class<T> clazz;
-        Type superclass = getClass().getGenericSuperclass();
-        ParameterizedType parameterizedType = null;
-        if (superclass instanceof ParameterizedType) {
-            parameterizedType = (ParameterizedType) superclass;
-            Type[] typeArray = parameterizedType.getActualTypeArguments();
-            if (typeArray != null && typeArray.length > 0) {
-                clazz = (Class<T>) typeArray[0];
-                return clazz;
-
-            }
-        }
-        return null;
-    }
 }

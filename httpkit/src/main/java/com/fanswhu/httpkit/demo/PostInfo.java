@@ -247,5 +247,37 @@ public class PostInfo extends BaseResponseParams {
         public void setPasstime(String passtime) {
             this.passtime = passtime;
         }
+
+        @Override
+        public String toString() {
+            return "ResultBean{" +
+                    "sid='" + sid + '\'' +
+                    ", text='" + text + '\'' +
+                    ", type='" + type + '\'' +
+                    ", thumbnail='" + thumbnail + '\'' +
+                    ", video='" + video + '\'' +
+                    ", images=" + images +
+                    ", up='" + up + '\'' +
+                    ", down='" + down + '\'' +
+                    ", forward='" + forward + '\'' +
+                    ", comment='" + comment + '\'' +
+                    ", uid='" + uid + '\'' +
+                    ", name='" + name + '\'' +
+                    ", header='" + header + '\'' +
+                    ", top_comments_content=" + top_comments_content +
+                    ", top_comments_voiceuri=" + top_comments_voiceuri +
+                    ", top_comments_uid=" + top_comments_uid +
+                    ", top_comments_name=" + top_comments_name +
+                    ", top_comments_header=" + top_comments_header +
+                    ", passtime='" + passtime + '\'' +
+                    '}';
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "PostInfo{" +
+                "result=" + result +
+                '}';
     }
 }
