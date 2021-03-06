@@ -4,6 +4,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -28,6 +29,7 @@ public interface RetrofitService {
             @Path("url") String url,
             @QueryMap Map<String, String> maps);
 
+    @FormUrlEncoded
     @POST("{url}")
     Observable<Object> executePost(
             @Path("url") String url,
