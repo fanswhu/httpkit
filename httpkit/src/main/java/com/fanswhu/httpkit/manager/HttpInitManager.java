@@ -16,7 +16,7 @@ public class HttpInitManager {
 
     }
 
-    private static HttpInitManager getInstance(){
+    public static HttpInitManager getInstance(){
         if(instance == null){
             synchronized (HttpInitManager.class){
                 if(instance == null){
