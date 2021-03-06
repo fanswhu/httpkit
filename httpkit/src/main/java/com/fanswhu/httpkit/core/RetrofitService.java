@@ -12,7 +12,7 @@ import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
-public interface RetrofitService<T> {
+public interface RetrofitService {
 
 
 /**
