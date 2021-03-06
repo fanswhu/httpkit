@@ -8,7 +8,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PostInfo1 extends BaseResponseParams {
+public class PostInfo extends BaseResponseParams {
 
     /**
      * code : 200
@@ -83,9 +83,9 @@ public class PostInfo1 extends BaseResponseParams {
         private Object top_comments_header;
         private String passtime;
 
-        public static PostInfo1.ResultBean objectFromData(String str) {
+        public static PostInfo.ResultBean objectFromData(String str) {
 
-            return new Gson().fromJson(str, PostInfo1.ResultBean.class);
+            return new Gson().fromJson(str, PostInfo.ResultBean.class);
         }
 
         public static List<ResultBean> arrayResultBeanFromData(String str) {

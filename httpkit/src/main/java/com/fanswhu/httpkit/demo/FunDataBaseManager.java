@@ -5,8 +5,8 @@ import com.fanswhu.httpkit.core.BaseObserver;
 
 
 
-public class FunDataBaseManager extends BaseDataManager<PostRequest, PostInfo1> {
-    public FunDataBaseManager(BaseObserver.HttpCallBack<PostInfo1> callBack) {
+public class FunDataBaseManager extends BaseDataManager<PostRequest, PostInfo> {
+    public FunDataBaseManager(BaseObserver.HttpCallBack<PostInfo> callBack) {
         super("getJoke", callBack);
     }
 

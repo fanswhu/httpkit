@@ -1,11 +1,17 @@
 package com.fanswhu.httpkit.core;
 
+import android.util.Log;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
-public class BaseObserver<T> implements Observer<T> {
-    private  HttpCallBack<T> mHttpCallBack;
+public class BaseObserver<T> implements Observer<Object> {
+    private static final String TAG = "BaseObserver";
+    private final HttpCallBack<T> mHttpCallBack;
     private Disposable mDisposable;
 
     public BaseObserver(HttpCallBack<T> mHttpCallBack) {
@@ -18,9 +24,15 @@ public class BaseObserver<T> implements Observer<T> {
     }
 
     @Override
-    public void onNext(@NonNull T o) {
+    public void onNext(@NonNull Object o) {
+
         if (mHttpCallBack != null) {
-            mHttpCallBack.onSuccess(o);
+            try {
+                T response = (T) o;
+                mHttpCallBack.onSuccess(response);
+            } catch (ClassCastException e) {
+                Log.e(TAG, "ClassCastException");
+            }
         }
     }
 
@@ -49,4 +61,5 @@ public class BaseObserver<T> implements Observer<T> {
 
         void onError(Throwable e);
     }
+
 }

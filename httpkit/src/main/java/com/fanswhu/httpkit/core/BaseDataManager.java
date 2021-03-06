@@ -13,7 +13,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public abstract class BaseDataManager<V extends BaseRequestParams,T extends BaseResponseParams> {
     protected String mUrl;
-    protected BaseObserver.HttpCallBack mCallBack;
+    protected BaseObserver.HttpCallBack<T> mCallBack;
 
     public BaseDataManager(String url, BaseObserver.HttpCallBack<T> callBack) {
         this.mCallBack = callBack;
@@ -34,11 +34,12 @@ public abstract class BaseDataManager<V extends BaseRequestParams,T extends Base
         Map<String,Object> map = new Gson().<Map<String,Object>>fromJson(s, Map.class);
         getResponse(map).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<>(mCallBack));
+                .subscribe(new BaseObserver<T>(mCallBack));
     }
 
     protected  Observable<Object> getResponse(Map<String,Object> requestParams){
-        return RetrofitManager.getRetrofitService().executePost(mUrl, requestParams);
+      return RetrofitManager.getRetrofitService().executePost(mUrl, requestParams);
+
     }
 
 }
