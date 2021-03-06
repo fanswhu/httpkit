@@ -3,6 +3,7 @@ package com.fanswhu.httpkit.core;
 import java.util.Map;
 import io.reactivex.Observable;
 import retrofit2.Call;
+import retrofit2.http.FieldMap;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -30,7 +31,7 @@ public interface RetrofitService {
     @POST("{url}")
     Observable<Object> executePost(
             @Path("url") String url,
-            @QueryMap Map<String, Object> maps);
+            @FieldMap Map<String, Object> maps);
 
    /* @Multipart
     @POST("{url}")
