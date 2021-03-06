@@ -11,7 +11,7 @@ import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 
-public class BaseObserver<T> implements Observer<String> {
+public class BaseObserver<T> implements Observer<Object> {
     private static final String TAG = "BaseObserver";
     private final HttpCallBack<T> mHttpCallBack;
     private Disposable mDisposable;
@@ -26,11 +26,12 @@ public class BaseObserver<T> implements Observer<String> {
     }
 
     @Override
-    public void onNext(@NonNull String o) {
+    public void onNext(@NonNull Object o) {
 
         if (mHttpCallBack != null) {
             try {
-                T response = new Gson().fromJson(o,getClazz());
+                Gson gson = new Gson();
+                T response = gson.fromJson(gson.toJson(o),getClazz());
                 mHttpCallBack.onSuccess(response);
             } catch (ClassCastException e) {
                 Log.e(TAG, "ClassCastException");

@@ -37,7 +37,7 @@ public abstract class BaseDataManager<V extends BaseRequestParams,T extends Base
                 .subscribe(new BaseObserver<T>(mCallBack));
     }
 
-    protected  Observable<String> getResponse(Map<String,Object> requestParams){
+    protected  Observable<Object> getResponse(Map<String,Object> requestParams){
       return RetrofitManager.getRetrofitService().executePost(mUrl, requestParams);
 
     }
