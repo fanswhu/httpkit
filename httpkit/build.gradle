@@ -34,14 +34,14 @@ ext {
     rxandroid_version = "2.0.2"
 }
 dependencies {
-    compile "com.squareup.retrofit2:retrofit:$retrofit_version"
-    compile "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    api "com.squareup.retrofit2:retrofit:$retrofit_version"
+    api "com.squareup.retrofit2:converter-gson:$retrofit_version"
 
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.9.1'
+    api 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.9.1'
 
-    compile "io.reactivex.rxjava2:rxjava:$rxjava_version"
-    compile "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    api "io.reactivex.rxjava2:rxjava:$rxjava_version"
+    api "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
 
     //room数据库
     //api 'androidx.room:room-runtime:2.2.5'
